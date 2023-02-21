@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 // Create a new type(data-structure) of deck
@@ -61,4 +63,18 @@ func readDeckFromFile(filename string) deck {
 
 	//Convert the stringSlice into type deck and return
 	return deck(sSlice)
+}
+
+func (d deck) shuffle() {
+	//Go rand always uses same seed to randomize, so we need to figure out how to randomize the seed
+	//First we need to create a new source object using rand.NewSource function which takes a seed value in
+	//in the form of int64. Then we use this source object to create a new rand object called r.
+	//To create a unique int64 seed everytime, we use the time package, Now function which gives current time
+	//and then apply UnixNano function on it which returns an int64 value of current time.
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+	for i := range d {
+		pos := r.Intn(len(d) - 1)   //find a random card pos and swap current card with that card
+		d[i], d[pos] = d[pos], d[i] //swap
+	}
 }

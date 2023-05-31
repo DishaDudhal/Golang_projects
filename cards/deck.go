@@ -28,6 +28,9 @@ func newDeck() deck {
 	return cards
 }
 
+// (d deck) refers to the receiver of the function print, aka any receiver "d" of type deck
+// will be able to call the function print() as -> d.print()
+// If compared to an object oriented language it is sort of similar to an object's method
 func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(card, i)
@@ -35,6 +38,11 @@ func (d deck) print() {
 }
 
 // function deal will return 2 values both of type deck
+// Here we dont have any receiver but we just have a function deal which takes the deck as an argument
+// along with the size of the hand to be dealt. It also specifis the return type of the function - which
+// is 2 decks.
+// This particular design choice was made to make it less confusing about what deal actually does.
+// aka d.deal(5) does not convey proper info as to what is 5 or what are we dealing.
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
 }

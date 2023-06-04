@@ -2,15 +2,28 @@ package main
 
 import "fmt"
 
+type contactInfo struct {
+	email   string
+	zipCode int
+}
+
 type person struct {
 	firstName string
 	lastName  string
+	contact   contactInfo
 }
 
 func main() {
-	//Writing the firstname and lastname : is optional, however if not specified the order within
-	//the curly braces will be mapped to person struct aka {"Alex", "Anderson"} by default Alex is firstName
-	//and Anderson is lastname
-	alex := person{firstName: "Alex", lastName: "Anderson"}
-	fmt.Println(alex)
+	//This is an example of how to use struct inside a struct. Note that we can also use contactInfo
+	//struct freely without having to create any person struct.
+	jim := person{
+		firstName: "Jim",
+		lastName:  "Anderson",
+		contact: contactInfo{
+			email:   "jima@gmail.com",
+			zipCode: 12345,
+		},
+	}
+
+	fmt.Printf("%+v", jim)
 }
